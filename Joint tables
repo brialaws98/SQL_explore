@@ -1,0 +1,40 @@
+-- Looking at Total Population vs Vaccinations
+
+-- SELECT 
+--   dea.continent,
+--   dea.location,
+--   dea.date,
+--   dea.population,
+--   vac.new_vaccinations,
+--   SUM(CAST(vac.new_vaccinations as int)) OVER (Partition by dea.location order by dea.location, dea.date) AS RollingPeopleVaccinated
+-- FROM 
+--   `portfolio-project-397513.covid_results.CovidDeaths` dea
+--   JOIN `portfolio-project-397513.covid_results.CovidVaccinations` vac
+--   ON dea.location = vac.location 
+--   AND dea.date = vac.date
+-- WHERE dea.continent is not null
+-- ORDER BY 2, 3
+
+---------------------------------------
+-- Use CTE
+-- with PopvsVac 
+-- as
+-- (
+-- SELECT 
+--   dea.continent,
+--   dea.location,
+--   dea.date,
+--   dea.population,
+--   vac.new_vaccinations,
+--   SUM(CAST(vac.new_vaccinations as int)) OVER (Partition by dea.location order by dea.location, dea.date) AS RollingPeopleVaccinated
+-- FROM 
+--   `portfolio-project-397513.covid_results.CovidDeaths` dea
+--   JOIN `portfolio-project-397513.covid_results.CovidVaccinations` vac
+--   ON dea.location = vac.location 
+--   AND dea.date = vac.date
+-- WHERE dea.continent is not null
+-- -- ORDER BY 2, 3
+-- )
+-- SELECT *,
+--   (RollingPeopleVaccinated/Population)*100
+-- FROM PopvsVac
