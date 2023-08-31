@@ -1,0 +1,14 @@
+-- How does the COVID vaccinations effect infection rate 
+    -- The top 5 locations include
+      --- United States
+      --- China
+      --- India
+      --- France
+      ---Germany
+SELECT 
+  location,
+  MAX(cast(total_cases as int)) AS TotalCaseCount
+FROM `portfolio-project-397513.covid_results.CovidDeaths`
+WHERE continent is not null
+GROUP BY location
+ORDER BY TotalCaseCount desc
