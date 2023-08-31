@@ -1,0 +1,98 @@
+--  Make sure all tables are present
+
+-- SELECT *
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- ORDER BY 3, 4
+-- SELECT *
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- ORDER BY 3, 4
+---------------------------------------------------------------------------
+-- Select Data that will be used
+
+-- SELECT
+--   location,
+--   total_cases,
+--   new_cases,
+--   total_deaths, 
+--   population
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- ORDER BY 1,2
+-----------------------------------------------------
+-- Look at Total Cases vs Total Deaths
+  -- Shows likelihood of dying if you contract covid in your country
+
+-- SELECT
+--   location,
+--   date,
+--   total_cases,
+--   total_deaths, 
+--   (total_deaths/total_cases)*100 AS DeathPercentage
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- WHERE location like 'United States'
+-- ORDER BY 1,2 DESC
+-------------------------------------------------------------------
+-- Looking at Total Cases vs Population
+    -- Shows what percentage of population got Covid
+-- SELECT
+--   location,
+--   date,
+--   population,
+--   total_cases,
+--   (total_cases/population)*100 AS PercentagePopulationInfected
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- WHERE location like 'United States'
+-- ORDER BY 1,2 
+---------------------------------------------------------
+-- Looking at Countries with highest Infection Rate compared to Population
+
+-- SELECT
+--   location,
+--   MAX(total_cases) AS HighestInfectionCount, 
+--   MAX((total_deaths/total_cases))*100 AS PercentPopulationInfected
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+--  -- WHERE location like 'United States'
+-- GROUP BY location, population
+-- ORDER BY PercentPopulationInfected DESC
+----------------------------------------------
+-- Showing Countries with Highest Death Count per Population
+
+-- SELECT
+--   location,
+--   MAX(cast(total_deaths as int)) as TotalDeathCount
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+--  -- WHERE location like 'United States'
+--  WHERE continent IS NOT NULL
+-- GROUP BY location, population
+-- ORDER BY TotalDeathCount DESC
+-----------------------------------------------------
+-- Let's Break things Down By Continent
+
+-- SELECT 
+--   location,
+--   MAX(cast(total_deaths as int)) AS TotalDeathCount
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- WHERE continent is not null
+-- GROUP BY location
+-- ORDER BY TotalDeathCount desc
+
+-------------------------------------------------------------
+-- Showing continents with the highest death count per population
+
+-- SELECT 
+--   location,
+--   MAX(cast(total_deaths as int)) AS TotalDeathCount
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- WHERE continent is not null
+-- GROUP BY location
+-- ORDER BY TotalDeathCount desc
+
+-- GLOBAL numbers
+
+
+-- SELECT
+--   SUM(new_cases) as total_cases,
+--   SUM(cast(new_deaths as int)) as total_deaths, 
+--  (SUM(cast(new_cases as int))/SUM(new_cases))*100 as DeathPercentage
+-- FROM `portfolio-project-397513.covid_results.CovidDeaths`
+-- WHERE continent is not null
+-- ORDER BY 1,2
