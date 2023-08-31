@@ -12,3 +12,35 @@ FROM `portfolio-project-397513.covid_results.CovidDeaths`
 WHERE continent is not null
 GROUP BY location
 ORDER BY TotalCaseCount desc
+
+________________________________
+________________________________
+SELECT 
+  dea.iso_code,
+  dea.date,
+  dea.continent,
+  dea.location,
+-- total_cases shows what percentage of population got Infected
+  dea.total_cases,
+-- PercentageVaccinated shows what percentage of population is vaccinated
+  vac.total_vaccinations,
+vac.population
+FROM
+  `portfolio-project-397513.covid_results.CovidDeaths` dea
+  JOIN `portfolio-project-397513.covid_results.CovidVaccinations` vac
+  ON dea.location = vac.location 
+  AND dea.date = vac.date
+-- WHERE dea.location = 'United States'
+  -- WHERE vac.total_vaccinations is not null 
+-- AND dea.continent is not null
+WHERE 
+  -- dea.date >= '2020-03-19'
+  dea.total_cases is not null
+  
+-- The date people started to get vaccinated was on the date 2021-03-29
+  -- AND vac.total_vaccinations is not null 
+  
+
+ORDER BY 
+  dea.iso_code,
+  dea.date
